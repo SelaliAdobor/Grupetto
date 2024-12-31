@@ -5,7 +5,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
@@ -30,11 +29,12 @@ import com.spop.poverlay.MainActivity
 import com.spop.poverlay.R
 import com.spop.poverlay.sensor.DeadSensorDetector
 import com.spop.poverlay.sensor.interfaces.DummySensorInterface
-import com.spop.poverlay.sensor.interfaces.PelotonV1SensorInterface
+import com.spop.poverlay.sensor.interfaces.PelotonBikeSensorInterface
+import com.spop.poverlay.sensor.interfaces.PelotonBikePlusSensorInterface
+import com.spop.poverlay.util.IsBikePlus
 import com.spop.poverlay.util.IsRunningOnPeloton
 import com.spop.poverlay.util.LifecycleEnabledService
 import com.spop.poverlay.util.disableAnimations
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import timber.log.Timber
 import java.util.*
@@ -90,15 +90,25 @@ class OverlayService : LifecycleEnabledService() {
             resources.displayMetrics.heightPixels.toFloat()
         )
 
-
         val sensorInterface = if (IsRunningOnPeloton) {
-            PelotonV1SensorInterface(this).also {
-                lifecycle.addObserver(object : DefaultLifecycleObserver {
-                    override fun onDestroy(owner: LifecycleOwner) {
-                        it.stop()
-                    }
-                })
+            if (IsBikePlus) {
+                PelotonBikePlusSensorInterface(this).also {
+                    lifecycle.addObserver(object : DefaultLifecycleObserver {
+                        override fun onDestroy(owner: LifecycleOwner) {
+                            it.stop()
+                        }
+                    })
+                }
+            } else {
+                PelotonBikeSensorInterface(this).also {
+                    lifecycle.addObserver(object : DefaultLifecycleObserver {
+                        override fun onDestroy(owner: LifecycleOwner) {
+                            it.stop()
+                        }
+                    })
+                }
             }
+
         } else {
             EmulatorSensorInterface
         }

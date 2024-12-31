@@ -1,4 +1,4 @@
-package com.spop.poverlay.sensor
+package com.spop.poverlay.sensor.v1
 
 import android.os.IBinder
 

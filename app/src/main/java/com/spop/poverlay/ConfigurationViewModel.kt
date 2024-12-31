@@ -73,7 +73,6 @@ class ConfigurationViewModel(
 
     fun onResume() {
         updatePermissionState()
-
         viewModelScope.launch(Dispatchers.IO) {
             releaseChecker.getLatestRelease()
                 .onSuccess { release ->

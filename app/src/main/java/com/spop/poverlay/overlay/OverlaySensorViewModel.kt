@@ -19,9 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.time.Duration.Companion.milliseconds
 
-
 private const val MphToKph = 1.60934
-
 
 class OverlaySensorViewModel(
     application: Application,

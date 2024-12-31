@@ -2,10 +2,10 @@ package com.spop.poverlay.sensor.interfaces
 
 import android.content.Context
 import android.os.IBinder
-import com.spop.poverlay.sensor.PowerSensor
-import com.spop.poverlay.sensor.ResistanceSensor
-import com.spop.poverlay.sensor.RpmSensor
-import com.spop.poverlay.sensor.getBinder
+import com.spop.poverlay.sensor.v1.PowerSensor
+import com.spop.poverlay.sensor.v1.ResistanceSensor
+import com.spop.poverlay.sensor.v1.RpmSensor
+import com.spop.poverlay.sensor.v1.getBinder
 import com.spop.poverlay.util.windowed
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlin.coroutines.CoroutineContext
 
-class PelotonV1SensorInterface(val context: Context) : SensorInterface, CoroutineScope {
+class PelotonBikeSensorInterface(val context: Context) : SensorInterface, CoroutineScope {
     companion object{
         /**
          * Resistance is filtered with a moving window since it occasionally spikes

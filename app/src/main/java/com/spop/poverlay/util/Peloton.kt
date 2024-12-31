@@ -4,10 +4,16 @@ import android.os.Build
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-
 private const val PelotonBrand = "Peloton"
 
 val IsRunningOnPeloton = Build.BRAND == PelotonBrand
+
+/**
+ * I'm not sure if this is the best way to determine if the device is a Peloton Bike+.
+ * I'm assuming that the model name is the same for all Peloton Bike+ devices based on what I'm able
+ * to find online.
+ */
+val IsBikePlus = Build.MODEL == "PLTN-TTR01"
 
 fun calculateSpeedFromPelotonV1Power(power: Float) =
     if (power < 0.1f) {
